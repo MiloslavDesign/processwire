@@ -152,18 +152,7 @@ class ProcessLanguage extends ProcessPageType {
 
 			$phrases = file_get_contents($file);
 			$phrases = str_replace(array('"', "\n"), array(' ', ' '), $phrases);
-            
-            		//* javascript syntax error: malformed hexadecimal character escape sequence
-			* with processing phrase-index.txt if it was generated on Windows localhost  
-			* because directory separator is '\' (instead of '/') ... 
-			* example:   ^site--modules--admintheme--adminthemeuikit--adminthemeuikit-module:/site\assets\cache\FileCompiler\site\modules\AdminTheme\AdminThemeUikit\AdminThemeUikit.module
-			* should be: ^site--modules--admintheme--adminthemeuikit--adminthemeuikit-module:/site/assets/cache/FileCompiler/site/modules/AdminTheme/AdminThemeUikit/AdminThemeUikit.module
-			* filenames with path for phrase-index.txt comes from filenameToTextdomain() but
-            		* str_replace for DIRECTORY_SEPARATOR in function filenameToTextdomain() not working in this case...
-			* Miloslav
-			*/
-			$phrases = str_replace( '\\', '/', $phrases ); // temporary solution only
-			
+
 			$inputfield->value =
 				"<script>" .
 				"var phraseIndex = \"$phrases\"; " .
